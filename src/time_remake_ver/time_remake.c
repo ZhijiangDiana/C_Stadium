@@ -104,16 +104,8 @@ re_time_t get_day_start_time() {
 }
 
 // 获取 Unix 元年到当前的秒数
-long long get_seconds_since_epoch() {
+time_t get_seconds_epoch() {
     return time(NULL);  // time(NULL) 返回自 Unix 元年（1970年1月1日）以来的秒数
-}
-
-// 将 re_time_t 转换为从 Unix 元年起的秒数
-long long re_time_to_seconds_since_epoch(const re_time_t *time) {
-    if (!time)
-        return -1;
-
-    return re_time_to_time_t(time);  // 返回从 Unix 元年起的秒数
 }
 
 // 将 time_t 转换为 re_time_t

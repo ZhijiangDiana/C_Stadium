@@ -20,6 +20,7 @@ include_directories(
         ${PROJECT_SOURCE_DIR}/src/d_linked_list
         ${PROJECT_SOURCE_DIR}/src/time_remake_ver
         ${PROJECT_SOURCE_DIR}/src/test
+        ${PROJECT_SOURCE_DIR}/src/entity
 )
 
 # 链接 Qt5 Widgets 模块

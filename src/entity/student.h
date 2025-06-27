@@ -16,6 +16,8 @@ typedef struct _student_t {
     char name[50];
     gender_t gender;
     long phone;
+    char password[128];
+    char salt[16];
 } student_t;
 
 
