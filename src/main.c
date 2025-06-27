@@ -2,8 +2,9 @@
 
 #include "dllist_test.h"
 #include "time_remake_test.h"
-
+#include "field_dao_test.h"
 #include <windows.h>
+#include "init_storage.h"
 
 void set_console_utf8() {
     SetConsoleOutputCP(CP_UTF8);  // 设置输出为 UTF-8 编码
@@ -12,11 +13,13 @@ void set_console_utf8() {
 
 void module_test() {
     // dllist_iterator_test();
-    time_remake_test();
+    // time_remake_test();
+    field_dao_test();
 }
 
 int main(void) {
     set_console_utf8();
+    init_storage();
 
     module_test();
 }

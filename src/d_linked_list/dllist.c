@@ -29,6 +29,7 @@ list_t * init_list() {
     return list;
 }
 
+// TODO 不销毁data，可能会内存泄漏
 void destroy_list(list_t* list) {
     if (!list || !list->head)
         return;
