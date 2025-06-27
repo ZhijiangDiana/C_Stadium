@@ -156,6 +156,7 @@ void set_item(list_t* list, int index, void* data) {
     }
 
     // 修改值
+    free(node->data);
     node->data = data;
 }
 
