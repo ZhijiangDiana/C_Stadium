@@ -4,29 +4,33 @@
 
 #include "resv_service.h"
 
+#include <stdlib.h>
 #include "field_dao.h"
 
 
-response_result_t get_student_resv_info(resv_dto_t * dto) {
-    if (dto->is_search_by_id) {
-        return request_success(select_resv_by_student_id(dto->stu_id));
+response_result_t get_student_resv_info(resv_dto_t dto) {
+    if (dto.is_search_by_id) {
+        return request_success(select_resv_by_student_id(dto.stu_id));
     }
-    return request_success(select_resv_by_student_phone(dto->stu_phone));
+    return request_success(select_resv_by_student_phone(dto.stu_phone));
 }
 
-response_result_t add_resv(resv_info_t* info) {
+response_result_t add_resv(resv_info_t info) {
     // 获取field对象
-    field_t * field = select_field_by_field_id(info->field_id);
+    field_t * field = select_field_by_field_id(info.field_id);
 
     // 校验预约时间是否合法
-    if (info->resv_hours > MAX_RESV_HOURS)
+    if (info.resv_hours > MAX_RESV_HOURS)
         return request_error(INPUT_ERROR, RESV_TIME_TOO_LONG);
 
     // 校验起始终止时间是否合法
-    re_time_t resv_from = info->resv_time;
-    re_time_t resv_to = add_hours(&resv_from, info->resv_hours);
+    re_time_t resv_from = info.resv_time;
+    re_time_t resv_to = add_hours(&resv_from, info.resv_hours);
     if (compare_time(&field->open_from, &resv_from) <= 0 && compare_time(&resv_to, &field->open_to) <= 0) {
-        insert_resv(info);
+        // 将栈内存中的对象复制到堆内存中
+        resv_info_t * db_info = malloc(sizeof(resv_info_t));
+        memcpy(db_info, &info, sizeof(resv_info_t));
+        insert_resv(db_info);
         return request_success(NULL);
     }
 
@@ -36,15 +40,15 @@ response_result_t add_resv(resv_info_t* info) {
     return request_error(INPUT_ERROR, RESV_TIME_ILLEGAL);
 }
 
-response_result_t cancel_resv(resv_dto_t * dto) {
+response_result_t cancel_resv(resv_dto_t dto) {
     // 使用学生id删除预约信息
-    if (dto->is_search_by_id) {
-        delete_resv_by_student_id(dto->stu_id);
+    if (dto.is_search_by_id) {
+        delete_resv_by_student_id(dto.stu_id);
         return request_success(NULL);
     }
 
     // 使用手机号删除预约信息
-    resv_info_t * info = select_resv_by_student_phone(dto->stu_phone);
+    resv_info_t * info = select_resv_by_student_phone(dto.stu_phone);
     if (info != NULL)
         delete_resv_by_student_id(info->stu_id);
     return request_success(NULL);
