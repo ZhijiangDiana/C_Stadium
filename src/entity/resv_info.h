@@ -2,17 +2,17 @@
 // Created by 14838 on 25-6-26.
 //
 
-#ifndef BOOK_INFO_H
-#define BOOK_INFO_H
+#ifndef RESV_INFO_H
+#define RESV_INFO_H
 
-#include "../time_remake_ver/time_remake.h"
+#include "time_remake.h"
 
 typedef struct _resv_info_t {
     int stu_id;
-    long stu_phone;
-    int pg_id;
+    long long stu_phone;  // 十年OI一场空，不开longlong见祖宗
+    int field_id;
     re_time_t resv_time;
     int resv_hours;
 } resv_info_t;
 
-#endif //BOOK_INFO_H
+#endif //RESV_INFO_H
