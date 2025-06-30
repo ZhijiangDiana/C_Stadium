@@ -5,6 +5,8 @@
 #ifndef DLLIST_H
 #define DLLIST_H
 
+#include <stdbool.h>
+
 typedef struct _node_t {
     void * data;
     struct _node_t * next;
@@ -33,6 +35,9 @@ void set_item(list_t * list, int index, void * data);
 void * get_item(list_t * list, int index);
 
 void print_list(list_t * list);  // 仅用于测试，仅限int型
+
+bool save_to_file(list_t * list, char * filename);
+bool load_from_file(list_t * list, char * filename);
 
 
 #endif //DLLIST_H

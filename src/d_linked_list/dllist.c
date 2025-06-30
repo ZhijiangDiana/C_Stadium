@@ -4,6 +4,7 @@
 #include "dllist.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 // 获取一个结点并初始化
 static node_t * get_node(void * data) {
@@ -181,4 +182,43 @@ void print_list(list_t* list) {
         printf("%d ", *(int *) node->data);
         node = node->next;
     }
+}
+
+bool save_to_file(list_t* list, char* filename, char * (*serialize)(void *input)) {
+    FILE * file = fopen(filename, "w");
+    if (!file)
+        return false;
+
+    node_t * node = list->head->next;
+    while (node != list->head) {
+        char * buffer = serialize(node->data);
+
+        fwrite(buffer, sizeof(char), strlen(buffer), file);  // 写入文件
+        fwrite("\n", sizeof(char), 1, file);  // 分隔符
+        node = node->next;
+    }
+
+    fclose(file);
+
+    return true;
+}
+
+bool load_from_file(list_t* list, char* filename, void * (*deserialize)(char *input)) {
+    FILE * file = fopen(filename, "r");
+    if (!file)
+        return false;
+
+    char buffer[512];
+    while (fgets(buffer, sizeof(buffer), file) != NULL) {
+        void *data = deserialize(buffer);
+
+        node_t *new_node = malloc(sizeof(node_t));
+        new_node->data = data;
+        new_node->next = list->head;
+        list->head = new_node;
+    }
+
+    fclose(file);
+
+    return true;
 }
