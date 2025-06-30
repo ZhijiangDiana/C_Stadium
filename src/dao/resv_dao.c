@@ -14,9 +14,9 @@ void insert_resv(resv_info_t* resv) {
 }
 
 void delete_resv_by_student_id(int id) {
-    list_t * student_list = get_list(RESV_INFO_DB);
+    list_t * resv_list = get_list(RESV_INFO_DB);
 
-    list_iterator_t * itr = init_iterator(student_list);
+    list_iterator_t * itr = init_iterator(resv_list);
     int index = 0;
     while (has_next(itr)) {
         if (id == ((resv_info_t *) next(itr))->stu_id)
@@ -25,12 +25,33 @@ void delete_resv_by_student_id(int id) {
     }
     destroy_iterator(itr);
 
-    del_item(student_list, index);
+    del_item(resv_list, index);
 }
 
 // 不要释放！！！！！不要释放！！！！！
 list_t* select_all_resv() {
     return get_list(RESV_INFO_DB);
+}
+
+// 可以释放链表，但是不能释放数据
+list_t* select_resv_by_field_and_time(int field_id, re_time_t day) {
+    list_t * resv_list = get_list(RESV_INFO_DB);
+
+    list_t * res_list = init_list();
+
+    list_iterator_t * itr = init_iterator(resv_list);
+    int index = 0;
+    while (has_next(itr)) {
+        resv_info_t * resv = next(itr);
+        re_time_t resv_time = resv->resv_time;
+        if (resv_time.year == day.year && resv_time.month == day.month && resv_time.day == day.day)
+            if (field_id == resv->field_id)
+                push_back(res_list, resv);
+        index++;
+    }
+    destroy_iterator(itr);
+
+    return res_list;
 }
 
 // 不要释放！！！！！不要释放！！！！！
