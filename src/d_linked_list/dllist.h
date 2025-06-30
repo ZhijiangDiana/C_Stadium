@@ -19,7 +19,7 @@ typedef struct _list_t {
 } list_t;
 
 list_t * init_list();
-void destroy_list(list_t * list);
+void destroy_list(list_t * list, bool is_free_data);
 
 void push_back(list_t * list, void * data);
 void push_front(list_t * list, void * data);
@@ -36,8 +36,8 @@ void * get_item(list_t * list, int index);
 
 void print_list(list_t * list);  // 仅用于测试，仅限int型
 
-bool save_to_file(list_t * list, char * filename);
-bool load_from_file(list_t * list, char * filename);
+bool save_to_file(list_t * list, char * filename, char * (*serialize)(void *input));
+bool load_from_file(list_t * list, char * filename, void * (*deserialize)(char *input));
 
 
 #endif //DLLIST_H

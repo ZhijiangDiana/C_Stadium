@@ -31,7 +31,7 @@ list_t * init_list() {
 }
 
 // TODO 不销毁data，可能会内存泄漏
-void destroy_list(list_t* list) {
+void destroy_list(list_t* list, bool is_free_data) {
     if (!list || !list->head)
         return;
 
@@ -39,6 +39,8 @@ void destroy_list(list_t* list) {
     while (node != list->head) {
         node_t * temp = node;
         node = node->next;
+        if (is_free_data)
+            free(temp->data);
         free(temp);
     }
     free(list->head);
@@ -204,7 +206,9 @@ bool save_to_file(list_t* list, char* filename, char * (*serialize)(void *input)
 }
 
 bool load_from_file(list_t* list, char* filename, void * (*deserialize)(char *input)) {
-    FILE * file = fopen(filename, "r");
+    list = init_list();
+
+    FILE * file = fopen(filename, "rw");
     if (!file)
         return false;
 
