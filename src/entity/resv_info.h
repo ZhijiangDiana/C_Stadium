@@ -15,4 +15,7 @@ typedef struct _resv_info_t {
     int resv_hours;
 } resv_info_t;
 
+char * resv_info_t_serializer(resv_info_t * input);
+resv_info_t * resv_info_t_deserializer(char * input);
+
 #endif //RESV_INFO_H
