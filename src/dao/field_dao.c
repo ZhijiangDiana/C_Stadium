@@ -18,7 +18,7 @@ void insert_field(field_t* field) {
     push_back(field_list, field);
 }
 
-void delete_by_field_id(int id) {
+void delete_field_by_field_id(int id) {
     list_t * field_list = get_list(FIELD_DB);
 
     list_iterator_t * itr = init_iterator(field_list);
@@ -33,7 +33,7 @@ void delete_by_field_id(int id) {
     del_item(field_list, index);
 }
 
-void update_by_field_id(field_t* field) {
+void update_field_by_field_id(field_t* field) {
     list_t * field_list = get_list(FIELD_DB);
 
     list_iterator_t * itr = init_iterator(field_list);
@@ -54,7 +54,7 @@ list_t* select_all_field() {
 }
 
 // 不要释放！！！！！不要释放！！！！！
-field_t* select_by_field_id(int id) {
+field_t* select_field_by_field_id(int id) {
     list_t * field_list = get_list(FIELD_DB);
 
     list_iterator_t * itr = init_iterator(field_list);

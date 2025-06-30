@@ -59,7 +59,7 @@ static inline void test_seconds_since_epoch() {
     printf("=== 秒数转换 ===\n");
 
     re_time_t now = get_current_time();
-    long long seconds = get_seconds_since_epoch(&now);
+    long long seconds = get_seconds_epoch(&now);
     printf("当前时间对应的 Unix 秒数：%lld\n", seconds);
 
     re_time_t recovered = time_t_to_re_time(seconds);

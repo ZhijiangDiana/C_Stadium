@@ -43,7 +43,7 @@ static inline void field_dao_test() {
 
     printf("==========Test 2==========\n");
 
-    delete_by_field_id(10002);
+    delete_field_by_field_id(10002);
     print_all_item();
 
     printf("==========Test 3==========\n");
@@ -51,16 +51,16 @@ static inline void field_dao_test() {
     field_t * field = malloc(sizeof(field_t));
     field->id = 10000;
     strcpy(field->name, "仙贝羽毛球场114514");
-    update_by_field_id(field);
+    update_field_by_field_id(field);
     print_all_item();
 
     printf("==========Test 4==========\n");
 
-    field = select_by_field_id(10000);
+    field = select_field_by_field_id(10000);
     printf("%d %s\n", field->id, field->name);
-    field = select_by_field_id(10003);
+    field = select_field_by_field_id(10003);
     printf("%d %s\n", field->id, field->name);
-    field = select_by_field_id(10009);
+    field = select_field_by_field_id(10009);
     if (field == NULL)
         printf("114514114514");
 

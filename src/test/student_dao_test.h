@@ -56,7 +56,7 @@ static inline void test_student_dao() {
     }
 
     printf("\n== 按ID查询学生 ==\n");
-    student_t *found_id = select_by_student_id(1002);
+    student_t *found_id = select_student_by_student_id(1002);
     if (found_id) {
         print_student(found_id);
     } else {
@@ -64,14 +64,14 @@ static inline void test_student_dao() {
     }
 
     printf("\n== 按手机号查询学生 ==\n");
-    student_t *found_phone = select_by_student_phone(1234567890);
+    student_t *found_phone = select_student_by_student_phone(1234567890);
     if (found_phone) {
         print_student(found_phone);
     } else {
         printf("未找到手机号为 1234567890 的学生\n");
     }
 
-    found_phone = select_by_student_phone(1145141919810);
+    found_phone = select_student_by_student_phone(1145141919810);
     if (found_phone) {
         print_student(found_phone);
     } else {

@@ -11,10 +11,10 @@
 #include "init_storage.h"
 
 void insert_field(field_t * field);
-void delete_by_field_id(int id);
-void update_by_field_id(field_t * field);
+void delete_field_by_field_id(int id);
+void update_field_by_field_id(field_t * field);
 list_t * select_all_field();
-field_t * select_by_field_id(int id);
+field_t * select_field_by_field_id(int id);
 
 
 #endif //FIELD_DAO_H
