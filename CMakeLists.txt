@@ -22,6 +22,7 @@ include_directories(
         ${PROJECT_SOURCE_DIR}/src/test
         ${PROJECT_SOURCE_DIR}/src/entity
         ${PROJECT_SOURCE_DIR}/src/dao
+        ${PROJECT_SOURCE_DIR}/src/md5
 )
 
 # 链接 Qt5 Widgets 模块
