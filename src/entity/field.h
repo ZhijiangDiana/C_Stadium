@@ -6,6 +6,8 @@
 #define FIELD_H
 #include "time_remake.h"
 
+#define MAX_RESV_HOURS          2
+
 typedef struct _field_t {
     int id;
     char name[50];

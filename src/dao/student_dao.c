@@ -37,7 +37,7 @@ student_t* select_student_by_student_id(int id) {
 }
 
 // 不要释放！！！！！不要释放！！！！！
-student_t* select_student_by_student_phone(long phone) {
+student_t* select_student_by_student_phone(long long phone) {
     list_t * student_list = get_list(STUDENT_DB);
 
     list_iterator_t * itr = init_iterator(student_list);

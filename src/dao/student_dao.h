@@ -12,6 +12,6 @@
 void insert_student(student_t * student);
 list_t * select_all_student();
 student_t * select_student_by_student_id(int id);
-student_t * select_student_by_student_phone(long phone);
+student_t * select_student_by_student_phone(long long phone);
 
 #endif //STUDENT_DAO_H

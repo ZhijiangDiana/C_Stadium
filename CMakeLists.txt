@@ -21,6 +21,8 @@ include_directories(
         ${PROJECT_SOURCE_DIR}/src/time_remake_ver
         ${PROJECT_SOURCE_DIR}/src/test
         ${PROJECT_SOURCE_DIR}/src/entity
+        ${PROJECT_SOURCE_DIR}/src/entity/dtos
+        ${PROJECT_SOURCE_DIR}/src/entity/vos
         ${PROJECT_SOURCE_DIR}/src/dao
         ${PROJECT_SOURCE_DIR}/src/md5
 )
