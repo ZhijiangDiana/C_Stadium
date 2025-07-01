@@ -205,8 +205,8 @@ bool save_to_file(list_t* list, char* filename, char * (*serialize)(void *input)
     return true;
 }
 
-bool load_from_file(list_t* list, char* filename, void * (*deserialize)(char *input)) {
-    list = init_list();
+bool load_from_file(list_t ** list, char* filename, void * (*deserialize)(char *input)) {
+    *list = init_list();
 
     FILE * file = fopen(filename, "r");
     if (!file) {
@@ -218,11 +218,7 @@ bool load_from_file(list_t* list, char* filename, void * (*deserialize)(char *in
     char buffer[512];
     while (fgets(buffer, sizeof(buffer), file) != NULL) {
         void *data = deserialize(buffer);
-
-        node_t *new_node = malloc(sizeof(node_t));
-        new_node->data = data;
-        new_node->next = list->head;
-        list->head = new_node;
+        push_back(*list, data);
     }
 
     fclose(file);

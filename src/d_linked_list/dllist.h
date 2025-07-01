@@ -37,7 +37,7 @@ void * get_item(list_t * list, int index);
 void print_list(list_t * list);  // 仅用于测试，仅限int型
 
 bool save_to_file(list_t * list, char * filename, char * (*serialize)(void *input));
-bool load_from_file(list_t * list, char * filename, void * (*deserialize)(char *input));
+bool load_from_file(list_t ** list, char * filename, void * (*deserialize)(char *input));
 
 
 #endif //DLLIST_H

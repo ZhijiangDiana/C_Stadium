@@ -14,6 +14,7 @@ typedef enum _DB_TYPE {
     FIELD_DB = 0,
     RESV_INFO_DB = 1,
     STUDENT_DB = 2,
+    ALL_DB = 3
 } DB_TYPE;
 
 void init_storage();
