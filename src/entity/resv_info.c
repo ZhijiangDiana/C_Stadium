@@ -6,7 +6,8 @@
 #include <stdlib.h>
 #include <string.h>
 
-char* student_t_serializer(resv_info_t* input) {
+
+char* resv_info_t_serializer(resv_info_t* input) {
     // 预分配一个足够大的缓冲区
     char* buffer = malloc(512);
 
@@ -20,7 +21,7 @@ char* student_t_serializer(resv_info_t* input) {
     return buffer;  // 返回构造的字符串
 }
 
-resv_info_t* student_t_deserializer(char* input) {
+resv_info_t* resv_info_t_deserializer(char* input) {
     resv_info_t* result = malloc(sizeof(resv_info_t));
 
     // 临时缓冲区
