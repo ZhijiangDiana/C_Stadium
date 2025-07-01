@@ -208,9 +208,12 @@ bool save_to_file(list_t* list, char* filename, char * (*serialize)(void *input)
 bool load_from_file(list_t* list, char* filename, void * (*deserialize)(char *input)) {
     list = init_list();
 
-    FILE * file = fopen(filename, "rw");
-    if (!file)
-        return false;
+    FILE * file = fopen(filename, "r");
+    if (!file) {
+        file = fopen(filename, "w");
+        fclose(file);
+        file = fopen(filename, "r");
+    }
 
     char buffer[512];
     while (fgets(buffer, sizeof(buffer), file) != NULL) {

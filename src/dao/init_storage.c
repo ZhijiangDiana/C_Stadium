@@ -4,9 +4,9 @@
 
 #include "init_storage.h"
 
-#define FIELD_DB_FILE          "data/field.db"
-#define RESV_INFO_DB_FILE      "data/resv.db"
-#define STUDENT_DB_FILE        "data/student.db"
+#define FIELD_DB_FILE          "field.db"
+#define RESV_INFO_DB_FILE      "resv.db"
+#define STUDENT_DB_FILE        "student.db"
 
 static list_t * field_list = NULL;
 static list_t * resv_info_list = NULL;
