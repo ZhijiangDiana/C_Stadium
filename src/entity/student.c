@@ -5,27 +5,9 @@
 
 
 char * student_t_serializer(student_t* student) {
-    char * buffer = malloc(sizeof(student) * 2);
-    char temp[256];
+    char * buffer = malloc(sizeof(student_t) * 2);
 
-    // 序列化 id
-    sprintf(temp, "%d", student->id);
-    strcat(buffer, temp);
-    strcat(buffer, " ");
-
-    // 序列化 name
-    strcat(buffer, student->name);
-    strcat(buffer, " ");
-
-    // 序列化 gender
-    sprintf(temp, "%d", student->gender);
-    strcat(buffer, temp);
-    strcat(buffer, " ");
-
-    // 序列化 phone
-    sprintf(temp, "%lld", student->phone);
-    strcat(buffer, temp);
-    strcat(buffer, " ");
+    sprintf(buffer, "%d %s %d %lld", student->id, student->name, student->gender, student->phone);
 
     // // 序列化 password
     // strcat(buffer, student->password);
