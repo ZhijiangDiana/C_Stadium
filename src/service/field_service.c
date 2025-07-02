@@ -20,6 +20,11 @@ response_result_t list_all_field() {
     return request_success(res);
 }
 
+response_result_t get_field_by_id(int id) {
+    field_t * field = select_field_by_field_id(id);
+    return request_success(field);
+}
+
 list_t * three_day_vos[3];
 response_result_t list_field_three_days_resv(field_resv_info_dto_t dto) {
     // 1. 查询field信息

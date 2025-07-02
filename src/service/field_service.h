@@ -13,6 +13,7 @@
 
 response_result_t add_field(field_t field);
 response_result_t list_all_field();
+response_result_t get_field_by_id(int id);
 response_result_t list_field_three_days_resv(field_resv_info_dto_t info);
 list_t * list_field_resv(field_t field, re_time_t time);
 
