@@ -46,7 +46,7 @@ list_t * list_field_resv(field_t field, re_time_t time) {
         // 设定时间
         resv_vo.unit_from.hour = field.open_from.hour + i;
         resv_vo.unit_from.minute = 0;
-        resv_vo.unit_to.hour = field.open_to.hour + i + 1;
+        resv_vo.unit_to.hour = field.open_from.hour + i + 1;
         resv_vo.unit_to.minute = 0;
 
         // 将栈内存复制到堆内存
