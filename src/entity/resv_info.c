@@ -13,7 +13,10 @@ char* resv_info_t_serializer(resv_info_t* input) {
 
     // 临时缓冲区用于格式化时间
     char time_buffer[64];
-    format_time(&(input->resv_time), time_buffer, sizeof(time_buffer));
+    re_time_t * resv_time = &input->resv_time;
+    sprintf(time_buffer, "%02d-%02d-%02dT%02d:%02d:%02d",
+        resv_time->year, resv_time->month, resv_time->day,
+        resv_time->hour, resv_time->minute, resv_time->second);
 
     // 将各个字段拼接到缓冲区中
     sprintf(buffer, "%d %lld %d %s %d", input->stu_id, input->stu_phone, input->field_id, time_buffer, input->resv_hours);
@@ -42,7 +45,7 @@ resv_info_t* resv_info_t_deserializer(char* input) {
     time_buffer[sizeof(time_buffer) - 1] = '\0';
 
     // 将时间字符串解析为 re_time_t
-    sscanf(time_buffer, "%d-%d-%d %d:%d",
+    sscanf_s(time_buffer, "%d-%d-%dT%d:%d:%d",
            &result->resv_time.year, &result->resv_time.month, &result->resv_time.day,
            &result->resv_time.hour, &result->resv_time.minute);
     result->resv_time.second = 0;
