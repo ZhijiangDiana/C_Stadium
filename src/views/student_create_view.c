@@ -5,31 +5,34 @@
 #include "student_create_view.h"
 
 #include "student.h"
-#include "student_dao.h"
+#include "student_service.h"
 
 
 void student_create_menu() {
     system("cls");
     printf("==========录入学生信息==========\n");
 
-    student_t * student = malloc(sizeof(student_t));
+    student_t student;
 
     // 输入学号
     printf("请输入学号：");
-    scanf_s("%d", &student->id);
+    scanf_s("%d", &student.id);
 
     // 输入学号
     printf("请输入姓名：");
-    scanf_s("%s", &student->name);
+    scanf_s("%s", &student.name);
 
     // 输入手机号
     printf("请输入手机号：");
-    scanf_s("%lld", &student->phone);
+    scanf_s("%lld", &student.phone);
 
-    student->gender = NOT_SET;
+    student.gender = NOT_SET;
 
-    insert_student(student);
+    response_result_t resp = add_new_student(student);
+    if (resp.code == SUCCESS)
+        printf("录入学生信息成功！\n");
+    else
+        printf("发生错误：%s\n", resp.error_msg);
 
-    printf("录入学生信息成功！\n");
     system("pause");
 }
