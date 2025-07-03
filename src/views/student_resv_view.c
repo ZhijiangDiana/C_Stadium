@@ -40,7 +40,7 @@ void cancel_resv_view() {
                 resv_info->resv_time.hour, resv_info->resv_time.minute,
                 resv_info->resv_time.hour + resv_info->resv_hours, resv_info->resv_time.minute);
 
-            printf("请输入是否需要取消（y）：\n");
+            printf("请输入是否需要取消（y）：");
             char choice;
             scanf_s(" %c", &choice);
             if (choice == 'y') {

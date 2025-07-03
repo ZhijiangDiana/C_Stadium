@@ -19,7 +19,8 @@ void delete_resv_by_student_id(int id) {
     list_iterator_t * itr = init_iterator(resv_list);
     int index = 0;
     while (has_next(itr)) {
-        if (id == ((resv_info_t *) next(itr))->stu_id)
+        resv_info_t * stu = next(itr);
+        if (id == ((resv_info_t *) stu)->stu_id)
             break;
         index++;
     }

@@ -143,6 +143,7 @@ void del_item(list_t* list, int index) {
     // 删除结点
     node->prev->next = node->next;
     node->next->prev = node->prev;
+    free(node->data);
     free(node);
 
     list->length--;
