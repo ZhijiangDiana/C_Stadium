@@ -12,6 +12,7 @@ typedef struct _field_resv_vo_t {
     re_time_t unit_to;
     int empty_cnt;
     int total_cnt;
+    bool teacher_use;
 } field_resv_vo_t;
 
 #endif //FIELD_RESV_VO_H

@@ -43,6 +43,9 @@ list_t * list_field_resv(field_t field, re_time_t time) {
     // 1. 列出当天场馆所有预约记录
     list_t * resv_list = select_resv_by_field_and_time(field.id, time);
 
+    // 获取field当天开始结束时间
+    field.open_from = get_field_start_time(field.open_from);
+
     // 2. 初始化VO列表
     list_t * vo_list = init_list();
     int unit_cnt = field.open_to.hour - field.open_from.hour;
@@ -56,6 +59,8 @@ list_t * list_field_resv(field_t field, re_time_t time) {
         resv_vo.unit_to = time;
         resv_vo.unit_to.hour = field.open_from.hour + i + 1;
         resv_vo.unit_to.minute = 0;
+        // 设定是否是教职工使用
+        resv_vo.teacher_use = is_teacher_use_hour(&resv_vo.unit_from) && is_teacher_use_hour(&resv_vo.unit_to);
 
         // 将栈内存复制到堆内存
         field_resv_vo_t * db_vo = malloc(sizeof(field_resv_vo_t));
@@ -82,4 +87,30 @@ list_t * list_field_resv(field_t field, re_time_t time) {
 
     // 4. 返回list
     return vo_list;
+}
+
+bool is_teacher_use_hour(re_time_t * time) {
+    int day = get_day_of_week(time);
+
+    if (day == 1 || day == 3 || day == 5) {
+        if (17 <= time->hour && time->hour <= 20) {
+            return true;
+        }
+    }
+    return false;
+}
+
+re_time_t get_field_start_time(re_time_t time) {
+    int day = get_day_of_week(&time);
+
+    if (1 <= day && day <= 5) {
+        time.hour = 15;
+        time.minute = 0;
+        time.second = 0;
+        return time;
+    }
+    time.hour = 9;
+    time.minute = 0;
+    time.second = 0;
+    return time;
 }

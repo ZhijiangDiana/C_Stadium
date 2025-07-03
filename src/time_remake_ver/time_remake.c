@@ -145,3 +145,21 @@ tm re_time_to_tm(const re_time_t *time) {
 
     return tm_time;
 }
+
+int get_day_of_week(const re_time_t* time) {
+    if (time == NULL) {
+        return -1; // 错误：空指针
+    }
+
+    time_t timestamp = re_time_to_time_t(time);
+    if (timestamp == (time_t)-1) {
+        return -1; // 错误：转换失败
+    }
+
+    tm *tm_time = localtime(&timestamp);
+    if (tm_time == NULL) {
+        return -1; // 错误：localtime 失败
+    }
+
+    return tm_time->tm_wday == 0 ? 7 : tm_time->tm_wday;
+}

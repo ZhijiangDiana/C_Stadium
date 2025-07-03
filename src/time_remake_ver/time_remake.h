@@ -32,5 +32,6 @@ time_t get_seconds_epoch();
 re_time_t time_t_to_re_time(time_t timestamp);
 time_t re_time_to_time_t(const re_time_t *time);
 tm re_time_to_tm(const re_time_t *time);
+int get_day_of_week(const re_time_t *time);
 
 #endif //TIME_REMAKE_H

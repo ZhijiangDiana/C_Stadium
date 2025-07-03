@@ -91,6 +91,10 @@ void resv_field_menu(int field_id, bool need_resv) {
                     printf("%2d. %02d:%02d - %02d:%02d  已约满\n", index,
                         vo->unit_from.hour, vo->unit_from.minute,
                         vo->unit_to.hour, vo->unit_to.minute);
+                } else if (vo->teacher_use) {
+                    printf("%2d. %02d:%02d - %02d:%02d  教职工羽协活动时间\n", index,
+                        vo->unit_from.hour, vo->unit_from.minute,
+                        vo->unit_to.hour, vo->unit_to.minute);
                 } else {
                     printf("%2d. %02d:%02d - %02d:%02d  可约%d/总共%d\n", index,
                         vo->unit_from.hour, vo->unit_from.minute,
@@ -137,7 +141,7 @@ void resv_field_menu(int field_id, bool need_resv) {
                 system("pause");
                 return;
             }
-            if (compare_time(&vo->unit_to, &now) < 0) {
+            if (compare_time(&vo->unit_to, &now) < 0 || vo->teacher_use) {
                 printf("所选场次不可预约！\n");
                 system("pause");
                 return;

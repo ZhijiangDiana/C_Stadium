@@ -17,4 +17,7 @@ response_result_t get_field_by_id(int id);
 response_result_t list_field_three_days_resv(field_resv_info_dto_t info);
 list_t * list_field_resv(field_t field, re_time_t time);
 
+bool is_teacher_use_hour(re_time_t * time);
+re_time_t get_field_start_time(re_time_t time);
+
 #endif //FIELD_SERVICE_H
