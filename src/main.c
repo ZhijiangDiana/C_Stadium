@@ -1,6 +1,8 @@
 #include <stdio.h>
 
 #include <windows.h>
+
+#include "index_view.h"
 #include "init_storage.h"
 #include "main_view.h"
 
@@ -30,7 +32,8 @@ void module_test() {
 int main(void) {
     set_console_utf8();
     init_storage();
+    index();
     enter_menu();
 
-    module_test();
+    // module_test();
 }
