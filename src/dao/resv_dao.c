@@ -60,9 +60,13 @@ resv_info_t* select_resv_by_student_id(int id) {
 
     list_iterator_t * itr = init_iterator(resv_list);
     int index = 0;
+    resv_info_t * resv = NULL;
     while (has_next(itr)) {
-        if (id == ((resv_info_t *) next(itr))->stu_id)
+        resv = next(itr);
+        re_time_t now = get_current_time();
+        if (id == resv->stu_id && compare_time(&resv->resv_time, &now) >= 0) {
             break;
+        }
         index++;
     }
     destroy_iterator(itr);
@@ -76,12 +80,17 @@ resv_info_t* select_resv_by_student_phone(long long phone) {
 
     list_iterator_t * itr = init_iterator(resv_list);
     int index = 0;
+    resv_info_t * resv = NULL;
     while (has_next(itr)) {
-        if (phone == ((resv_info_t *) next(itr))->stu_phone)
+        resv = next(itr);
+        resv->resv_time.hour += resv->resv_hours;
+        re_time_t now = get_current_time();
+        if (phone == resv->stu_phone && compare_time(&resv->resv_time, &now)) {
             break;
+        }
         index++;
     }
     destroy_iterator(itr);
 
-    return get_item(resv_list, index);
+    return resv;
 }

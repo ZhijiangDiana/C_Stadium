@@ -20,6 +20,7 @@ typedef enum _err_code_t {
 #define STU_NAME_TOO_LONG      "学生姓名太长"
 #define RESV_TIME_TOO_LONG     "预约时间太长"
 #define RESV_TIME_ILLEGAL      "预约时间不合法"
+#define RESERVE_REACH_LIMIT       "每位学生限制预约1个场地"
 
 // 使用完data后需要释放
 typedef struct _response_result_t {
