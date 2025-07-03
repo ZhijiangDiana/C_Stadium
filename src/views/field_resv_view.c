@@ -63,7 +63,7 @@ void field_menu(bool need_resv) {
 }
 
 void resv_field_menu(int field_id, bool need_resv) {
-    re_time_t now = get_hour_start_time();
+    re_time_t now = get_current_time();
     field_resv_info_dto_t dto = {field_id, now};
     response_result_t resp = list_field_three_days_resv(dto);
 
@@ -80,12 +80,23 @@ void resv_field_menu(int field_id, bool need_resv) {
             list_t * chosen_list = vo_lists[choice];
             list_iterator_t * itr = init_iterator(chosen_list);
             int index = 1;
+            re_time_t now_time = get_current_time();
             while (has_next(itr)) {
                 field_resv_vo_t * vo = next(itr);
-                printf("%2d. %02d:%02d - %02d:%02d  可约%d/总共%d\n", index,
-                    vo->unit_from.hour, vo->unit_from.minute,
-                    vo->unit_to.hour, vo->unit_to.minute,
-                    vo->empty_cnt, vo->total_cnt);
+                if (compare_time(&vo->unit_to, &now) < 0) {
+                    printf("%2d. %02d:%02d - %02d:%02d  时间已过\n", index,
+                        vo->unit_from.hour, vo->unit_from.minute,
+                        vo->unit_to.hour, vo->unit_to.minute);
+                } else if (vo->empty_cnt == 0) {
+                    printf("%2d. %02d:%02d - %02d:%02d  已约满\n", index,
+                        vo->unit_from.hour, vo->unit_from.minute,
+                        vo->unit_to.hour, vo->unit_to.minute);
+                } else {
+                    printf("%2d. %02d:%02d - %02d:%02d  可约%d/总共%d\n", index,
+                        vo->unit_from.hour, vo->unit_from.minute,
+                        vo->unit_to.hour, vo->unit_to.minute,
+                        vo->empty_cnt, vo->total_cnt);
+                }
                 index++;
             }
             destroy_iterator(itr);
@@ -123,6 +134,16 @@ void resv_field_menu(int field_id, bool need_resv) {
             field_resv_vo_t * vo = get_item(chosen_list, chosen_index - 1);
             if (vo == NULL) {
                 printf("场次输入错误！\n");
+                system("pause");
+                return;
+            }
+            if (compare_time(&vo->unit_to, &now) < 0) {
+                printf("所选场次不可预约！\n");
+                system("pause");
+                return;
+            }
+            if (vo->empty_cnt == 0) {
+                printf("该场已约满！\n");
                 system("pause");
                 return;
             }

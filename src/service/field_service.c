@@ -32,6 +32,7 @@ response_result_t list_field_three_days_resv(field_resv_info_dto_t dto) {
 
     // 2. 求出当天开始，三天之内的预约vo列表
     for (int i = 0; i < 3; ++i) {
+        dto.time.day += i;
         three_day_vos[i] = list_field_resv(*field, dto.time);
     }
 
