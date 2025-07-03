@@ -27,32 +27,22 @@ char* resv_info_t_serializer(resv_info_t* input) {
 resv_info_t* resv_info_t_deserializer(char* input) {
     resv_info_t* result = malloc(sizeof(resv_info_t));
 
-    // 临时缓冲区
     char time_buffer[64];
+    sscanf_s(input, "%d %lld %d %63s %d",  // 限定 %s 最大长度
+             &result->stu_id,
+             &result->stu_phone,
+             &result->field_id,
+             time_buffer, sizeof(time_buffer),
+             &result->resv_hours);
 
-    // 使用 strtok 拆分输入字符串
-    char* token = strtok(input, " ");
-    result->stu_id = atoi(token);  // 学生ID
-
-    token = strtok(NULL, " ");
-    result->stu_phone = atoll(token);  // 学生电话
-
-    token = strtok(NULL, " ");
-    result->field_id = atoi(token);  // 场地ID
-
-    token = strtok(NULL, " ");
-    strncpy(time_buffer, token, sizeof(time_buffer) - 1);  // 时间字符串
-    time_buffer[sizeof(time_buffer) - 1] = '\0';
-
-    // 将时间字符串解析为 re_time_t
     sscanf_s(time_buffer, "%d-%d-%dT%d:%d:%d",
-           &result->resv_time.year, &result->resv_time.month, &result->resv_time.day,
-           &result->resv_time.hour, &result->resv_time.minute);
-    result->resv_time.second = 0;
+             &result->resv_time.year, &result->resv_time.month, &result->resv_time.day,
+             &result->resv_time.hour, &result->resv_time.minute, &result->resv_time.second);
+    // result->stu_id = i;
+    // result->stu_phone = i;
+    // result->field_id = i;
+    // result->resv_hours = i;
+    // i++;
 
-    token = strtok(NULL, " ");
-    result->resv_hours = atoi(token);  // 预约时长
-
-    return result;  // 返回反序列化后的结构体
-
+    return result;
 }
