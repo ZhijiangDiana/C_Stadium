@@ -49,8 +49,10 @@ list_t * list_field_resv(field_t field, re_time_t time) {
         // 初始化结构体
         field_resv_vo_t resv_vo = {field.id, {0}, {0}, field.total_resv_cnt, field.total_resv_cnt};
         // 设定时间
+        resv_vo.unit_from = time;
         resv_vo.unit_from.hour = field.open_from.hour + i;
         resv_vo.unit_from.minute = 0;
+        resv_vo.unit_to = time;
         resv_vo.unit_to.hour = field.open_from.hour + i + 1;
         resv_vo.unit_to.minute = 0;
 
