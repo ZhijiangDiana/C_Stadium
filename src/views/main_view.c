@@ -61,7 +61,7 @@ void admin_menu() {
 
         printf("==========欢迎使用工地通-羽毛球场预约系统==========\n");
         printf("1. 录入场地信息\n");
-        printf("2. 录入场地信息\n");
+        printf("2. 录入用户信息\n");
         printf("3. 回到用户界面\n");
         printf("4. 退出程序\n");
         printf("请选择：");

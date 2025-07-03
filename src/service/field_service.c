@@ -27,12 +27,14 @@ response_result_t get_field_by_id(int id) {
 
 list_t * three_day_vos[3];
 response_result_t list_field_three_days_resv(field_resv_info_dto_t dto) {
+    dto.time.minute = 0;
+    dto.time.second = 0;
+
     // 1. 查询field信息
     field_t * field = select_field_by_field_id(dto.field_id);
 
     // 2. 求出当天开始，三天之内的预约vo列表
-    for (int i = 0; i < 3; ++i) {
-        dto.time.day += i;
+    for (int i = 0; i < 3; ++i, dto.time.day++) {
         three_day_vos[i] = list_field_resv(*field, dto.time);
     }
 
@@ -44,20 +46,20 @@ list_t * list_field_resv(field_t field, re_time_t time) {
     list_t * resv_list = select_resv_by_field_and_time(field.id, time);
 
     // 获取field当天开始结束时间
-    field.open_from = get_field_start_time(field.open_from);
+    re_time_t field_start_time = get_field_start_time(time);
 
     // 2. 初始化VO列表
     list_t * vo_list = init_list();
-    int unit_cnt = field.open_to.hour - field.open_from.hour;
+    int unit_cnt = field.open_to.hour - field_start_time.hour;
     for (int i = 0; i < unit_cnt; i++) {
         // 初始化结构体
         field_resv_vo_t resv_vo = {field.id, {0}, {0}, field.total_resv_cnt, field.total_resv_cnt};
         // 设定时间
         resv_vo.unit_from = time;
-        resv_vo.unit_from.hour = field.open_from.hour + i;
+        resv_vo.unit_from.hour = field_start_time.hour + i;
         resv_vo.unit_from.minute = 0;
         resv_vo.unit_to = time;
-        resv_vo.unit_to.hour = field.open_from.hour + i + 1;
+        resv_vo.unit_to.hour = field_start_time.hour + i + 1;
         resv_vo.unit_to.minute = 0;
         // 设定是否是教职工使用
         resv_vo.teacher_use = is_teacher_use_hour(&resv_vo.unit_from) && is_teacher_use_hour(&resv_vo.unit_to);
@@ -76,7 +78,7 @@ list_t * list_field_resv(field_t field, re_time_t time) {
         // 获取下一条预约记录
         resv_info_t * resv = next(itr);
         // 获取需要更改的index
-        int start_index = resv->resv_time.hour - field.open_from.hour;
+        int start_index = resv->resv_time.hour - field_start_time.hour;
         // 更改empty_cnt
         for (int i = 0; i < resv->resv_hours; ++i) {
             field_resv_vo_t * vo = get_item(vo_list, start_index + i);
