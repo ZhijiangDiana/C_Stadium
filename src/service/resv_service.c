@@ -17,6 +17,9 @@ response_result_t get_student_resv_info(resv_dto_t dto) {
 }
 
 response_result_t add_resv(resv_info_t info) {
+    info.resv_time.minute = 0;
+    info.resv_time.second = 0;
+
     // 获取field对象
     field_t * field = select_field_by_field_id(info.field_id);
 

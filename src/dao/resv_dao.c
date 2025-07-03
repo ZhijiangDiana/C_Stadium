@@ -64,7 +64,8 @@ resv_info_t* select_resv_by_student_id(int id) {
     while (has_next(itr)) {
         resv = next(itr);
         re_time_t now = get_current_time();
-        if (id == resv->stu_id && compare_time(&resv->resv_time, &now) >= 0) {
+        re_time_t resv_end_time = add_hours(&resv->resv_time, 1);
+        if (id == resv->stu_id && compare_time(&resv_end_time, &now) >= 0) {
             break;
         }
         index++;
