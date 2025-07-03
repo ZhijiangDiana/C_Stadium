@@ -14,6 +14,7 @@
 #include "field_service.h"
 #include "init_storage.h"
 #include "student_create_view.h"
+#include "student_resv_view.h"
 
 
 void enter_menu() {
@@ -39,7 +40,8 @@ void enter_menu() {
                 field_menu(false);
                 break;
             case 3:
-                // TODO 进入取消预约界面
+                // 进入取消预约界面
+                cancel_resv_view();
                 break;
             case 4:
                 // 进入录入学生信息界面

@@ -11,7 +11,7 @@
 #include "resv_service.h"
 
 
-void find_student() {
+void cancel_resv_view() {
     system("cls");
     printf("==========查看/取消预约==========\n");
     printf("请输入学生id：");
@@ -35,16 +35,20 @@ void find_student() {
         if (field_resp.code == SUCCESS) {
             field_t * field = field_resp.data;
 
-            printf("预约场次：%s  %02d-%02d-%02d %02d:%02d-%02d-%02d", field->name,
+            printf("预约场次：%s  %02d-%02d-%02d %02d:%02d-%02d-%02d\n", field->name,
                 resv_info->resv_time.year, resv_info->resv_time.month, resv_info->resv_time.day,
                 resv_info->resv_time.hour, resv_info->resv_time.minute,
                 resv_info->resv_time.hour + resv_info->resv_hours, resv_info->resv_time.minute);
 
-            cancel_resv_view();
+            printf("请输入是否需要取消（y）：\n");
+            char choice;
+            scanf_s(" %c", &choice);
+            if (choice == 'y') {
+                resv_dto_t resv_dto = {stu_id, 1, true};
+                cancel_resv(resv_dto);
+                printf("已取消预约！\n");
+                system("pause");
+            }
         }
     }
-}
-
-void cancel_resv_view() {
-    // cancel_resv();
 }
