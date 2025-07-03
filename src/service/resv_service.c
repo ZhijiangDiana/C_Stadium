@@ -26,7 +26,7 @@ response_result_t add_resv(resv_info_t info) {
     // 校验起始终止时间是否合法
     re_time_t resv_from = info.resv_time;
     re_time_t resv_to = add_hours(&resv_from, info.resv_hours);
-    if (compare_time(&field->open_from, &resv_from) <= 0 && compare_time(&resv_to, &field->open_to) <= 0) {
+    if (field->open_from.hour <= resv_from.hour && resv_to.hour <= field->open_to.hour) {
         // 将栈内存中的对象复制到堆内存中
         resv_info_t * db_info = malloc(sizeof(resv_info_t));
         memcpy(db_info, &info, sizeof(resv_info_t));
