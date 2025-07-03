@@ -24,7 +24,7 @@ void enter_menu() {
         printf("==========欢迎使用工地通-羽毛球场预约系统==========\n");
         printf("1. 预约场地\n");
         printf("2. 查询场地预约情况\n");
-        printf("3. 取消预约\n");
+        printf("3. 查看和取消预约\n");
         printf("4. 录入学生信息\n");
         printf("请选择：");
 
