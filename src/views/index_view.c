@@ -4,10 +4,10 @@
 
 #include "index_view.h"
 
-#include <stdbool.h>
 #include <stdio.h>
-#include <stdlib.h>
 #include <string.h>
+#include <conio.h>
+#include <stdlib.h>
 
 char frame0[10][128] = {
     " ",
@@ -54,17 +54,31 @@ void index() {
 
 void password_menu() {
     char password[128];
+
     do {
         system("cls");
         printf("====================\n");
         printf("请输入密码：");
-        scanf_s("%s", password);
+
+        int idx = 0;
+        char ch;
+        while ((ch = _getch()) != '\r') { // \r 是回车键（Enter）
+            if (ch == '\b') {  // 处理退格键
+                if (idx > 0) {
+                    idx--;
+                    printf("\b \b");  // 删除一个字符
+                }
+            } else if (idx < 127 && ch >= 32 && ch <= 126) {
+                password[idx++] = ch;
+                printf("*");
+            }
+        }
+        password[idx] = '\0';  // 字符串结束
+
         if (strcmp(password, "1145141919810") == 0)
             break;
-        printf("密码错误！\n");
-        system("pause");
-    } while (true);
 
-    printf("密码正确，正在进入主界面...");
-    _sleep(2000);
+        printf("\n密码错误！\n");
+        system("pause");
+    } while (1);
 }
